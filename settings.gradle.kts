@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
-        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -28,5 +30,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Blur-O-Matic"
+rootProject.name = "BlurWorkManager-Android"
 include(":app")
