@@ -22,13 +22,15 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.bluromatic.ui.BluromaticScreen
+import com.example.bluromatic.ui.BlurWorkScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BlurActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BluromaticScreen()
+            BlurWorkScreen()
         }
     }
 }

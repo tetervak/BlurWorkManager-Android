@@ -17,30 +17,30 @@
 package com.example.bluromatic.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.work.WorkInfo
-import com.example.bluromatic.BluromaticApplication
 import com.example.bluromatic.KEY_IMAGE_URI
 import com.example.bluromatic.data.BlurAmountData
-import com.example.bluromatic.data.BluromaticRepository
+import com.example.bluromatic.data.BlurRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 /**
  * [BlurViewModel] starts and stops the WorkManger and applies blur to the image. Also updates the
  * visibility states of the buttons depending on the states of the WorkManger.
  */
-class BlurViewModel(private val bluromaticRepository: BluromaticRepository) : ViewModel() {
+@HiltViewModel
+class BlurViewModel @Inject constructor(
+    private val blurRepository: BlurRepository
+) : ViewModel() {
 
     internal val blurAmount = BlurAmountData.blurAmount
 
-    val blurUiState: StateFlow<BlurUiState> = bluromaticRepository.outputWorkInfo
+    val blurUiState: StateFlow<BlurUiState> = blurRepository.outputWorkInfo
         .map { info ->
             val outputImageUri = info.outputData.getString(KEY_IMAGE_URI)
             when {
@@ -64,34 +64,14 @@ class BlurViewModel(private val bluromaticRepository: BluromaticRepository) : Vi
      * @param blurLevel The amount to blur the image
      */
     fun applyBlur(blurLevel: Int) {
-        bluromaticRepository.applyBlur(blurLevel)
+        blurRepository.applyBlur(blurLevel)
     }
 
     /**
      * Call method from repository to cancel any ongoing WorkRequest
      * */
     fun cancelWork() {
-        bluromaticRepository.cancelWork()
-    }
-
-    /**
-     * Factory for [BlurViewModel] that takes [BluromaticRepository] as a dependency
-     */
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val bluromaticRepository =
-                    (this[APPLICATION_KEY] as BluromaticApplication).container.bluromaticRepository
-                BlurViewModel(
-                    bluromaticRepository = bluromaticRepository
-                )
-            }
-        }
+        blurRepository.cancelWork()
     }
 }
 
-sealed interface BlurUiState {
-    object Default : BlurUiState
-    object Loading : BlurUiState
-    data class Complete(val outputUri: String) : BlurUiState
-}

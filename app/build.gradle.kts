@@ -81,6 +81,9 @@ dependencies {
     // needed for the work manager
     implementation("androidx.work:work-runtime-ktx:2.8.1")
 
+    // needed for Hilt with Work Manager (not used)
+    // implementation("androidx.hilt:hilt-work:1.1.0")
+
     // needed for the WorkInfo, it gets LiveData and converts to Flow
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 

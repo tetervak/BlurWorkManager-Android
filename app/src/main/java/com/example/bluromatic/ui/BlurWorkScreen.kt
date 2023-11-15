@@ -62,14 +62,14 @@ import com.example.bluromatic.data.BlurAmount
 import com.example.bluromatic.ui.theme.BluromaticTheme
 
 @Composable
-fun BluromaticScreen(blurViewModel: BlurViewModel = viewModel(factory = BlurViewModel.Factory)) {
+fun BlurWorkScreen(blurViewModel: BlurViewModel = viewModel()) {
     val uiState by blurViewModel.blurUiState.collectAsStateWithLifecycle()
     BluromaticTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            BluromaticScreenContent(
+            BlurWorkScreenContent(
                 blurUiState = uiState,
                 blurAmountOptions = blurViewModel.blurAmount,
                 applyBlur = blurViewModel::applyBlur,
@@ -80,7 +80,7 @@ fun BluromaticScreen(blurViewModel: BlurViewModel = viewModel(factory = BlurView
 }
 
 @Composable
-fun BluromaticScreenContent(
+fun BlurWorkScreenContent(
     blurUiState: BlurUiState,
     blurAmountOptions: List<BlurAmount>,
     applyBlur: (Int) -> Unit,
@@ -189,9 +189,9 @@ private fun BlurAmountContent(
 
 @Preview(showBackground = true)
 @Composable
-fun BluromaticScreenContentPreview() {
+fun BlurWorkScreenContentPreview() {
     BluromaticTheme {
-        BluromaticScreenContent(
+        BlurWorkScreenContent(
             blurUiState = BlurUiState.Default,
             blurAmountOptions = listOf(BlurAmount(R.string.blur_lv_1, 1)),
             {},

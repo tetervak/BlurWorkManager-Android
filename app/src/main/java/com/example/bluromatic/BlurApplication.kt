@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.bluromatic.data
+package com.example.bluromatic
 
-import android.content.Context
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-interface AppContainer {
-    val bluromaticRepository: BluromaticRepository
-}
-
-class DefaultAppContainer(context: Context) : AppContainer {
-    override val bluromaticRepository = WorkManagerBluromaticRepository(context)
-}
+@HiltAndroidApp
+class BlurApplication : Application()

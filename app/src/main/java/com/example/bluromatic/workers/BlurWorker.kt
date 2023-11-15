@@ -33,7 +33,10 @@ import kotlinx.coroutines.withContext
 
 private const val TAG = "BlurWorker"
 
-class BlurWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, params) {
+class BlurWorker constructor(
+    ctx: Context,
+    params: WorkerParameters
+) : CoroutineWorker(ctx, params) {
 
     override suspend fun doWork(): Result {
         val resourceUri = inputData.getString(KEY_IMAGE_URI)

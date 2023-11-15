@@ -39,7 +39,10 @@ import java.util.Locale
  */
 private const val TAG = "SaveImageToFileWorker"
 
-class SaveImageToFileWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, params) {
+class SaveImageToFileWorker constructor(
+    ctx: Context,
+    params: WorkerParameters
+) : CoroutineWorker(ctx, params) {
 
     private val title = "Blurred Image"
     private val dateFormatter = SimpleDateFormat(
