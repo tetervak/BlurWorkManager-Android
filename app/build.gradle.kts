@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 
     // needed by the local database
-    id("com.google.devtools.ksp")
+    //id("com.google.devtools.ksp")
 
     // needed for the dependency injection
     kotlin("kapt")

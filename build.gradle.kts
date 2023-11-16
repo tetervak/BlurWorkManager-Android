@@ -7,7 +7,7 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.48.1" apply false
 
     // needed by the local database
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
+    //id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
 }
 
 tasks.register("clean", Delete::class) {
